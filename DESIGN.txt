@@ -1,0 +1,295 @@
+Class: Point
+Methods:
+- point.py
+- distance_sq
+- adjacent
+
+Class: Background
+Methods:
+- get_images
+- get_image
+- get_name
+- next_image
+Class: MinerNotFull
+Methods:
+- set_position
+- get_position
+- get_images
+- get_image
+- get_rate
+- set_resource_count
+- get_resource_count
+- get_name
+- get_animation_rate
+- remove_pending_action
+- add_pending_action
+- get_pending_actions
+- clear_pending_actions
+- next_image
+- entity_string
+- miner_to_ore
+- create_miner_not_full_action
+- create_miner_action
+- create_animation_action
+- create_entity_death_action
+- remove_entity
+- schedule_miner
+- schedule_entity
+- schedule_action
+- schedule_animation
+Class: MinerFull
+Methods:
+- set_position get_position
+- get_images
+- get_image
+- get_rate
+- set_resource_count
+- get_resource_count
+- get_name
+- get_animation_rate
+- remove_pending_action
+- add_pending_action
+- get_pending_actions
+- clear_pending_actions
+- next_image
+- entity_string
+- miner_to_emith
+- create_miner_action
+- create_animation_action
+- create_entity_death_action
+- remove_entity
+- schedule_miner
+- schedule_action
+- schedule_animation
+Class: Vein
+Methods:
+- set_position 
+- get_position
+- get_images
+- get_image
+- get_rate
+- get_resource_distance
+- get_name
+- remove_pending_action
+- add_pending_action
+- get_pending_actions
+- clear_pending_actions
+- next_img
+- entity_string
+- create_vein_action
+- create_animation_action
+- create_entity_death_action
+- remove_entity
+- schedule_vein
+- schedule_action
+- schedule_animation
+
+Class: Ore
+Methods:
+- set_position
+- get_position
+- get_image
+- get_rate
+- remove_pending_action
+- add_pending_action
+- get_pending_actions
+- clear_pending_actions
+- next_img
+- entity_string
+- create_animation_action
+- create_entity_death_action
+- create_ore_transform_action
+- remove_entity
+- schedule_action
+- schedule_animation
+Class: Blacksmith
+Methods: 
+- set_position
+- get_position
+- get_images
+- get_image
+- get_rate
+- set_resource_count
+- get_resource_count
+- get_resource_distance
+- get_name
+- remove_pending_action
+- add_pending_action
+- get_pending_actions
+- clear_pending_actions
+- next_img
+- entity_string
+- create_animation_action
+- create_entity_death_action
+- remove_entity
+- schedule_action
+- schedule_animation
+Class: Obstacle
+Methods:
+- set_position
+- get_position
+- get_images
+- get_image
+- get_name
+- entity_string
+- remove_entity
+- schedule_action
+- schedule_animation
+Class: OreBlob
+Methods:
+- set_position
+- get_position
+- get_images
+- get_image
+- get_name
+- get_animation_rate
+- remove_pending_action
+- add_pending_action
+- get_pending_actions
+- clear_pending_actions
+- next_image
+- blob_to_vein
+- create_ore_blob_action
+- schedule_action
+- create_animation_action
+- create_entity_death_action
+- remove_entity
+- schedule_blob
+- schedule_action
+- schedule_animation
+Class: Quake
+Methods:
+- set_position
+- get_position
+- get_images
+- get_image
+- get_name
+- remove_pending_action
+- add_pending_action
+- get_pending_actions
+- clear_pending_actions
+- next_image
+- create_animation_action
+- create_entity_death_action
+- remove_entity
+- schedule_quake
+- schedule_action
+- schedule_animation
+
+Class: WorldModel
+Methods:
+- within_bounds
+- is_occupied
+- find_nearest
+- add_entity
+- move_entity
+- remove_entity
+- remove_entity_at
+- schedule_action
+- unschedule_action
+- update_on_time
+- get_background_image
+- get_background
+- set_background
+- add_background
+- get_tile_occupant
+- get_entities
+- next_position
+- blob_next_position
+- find_open_around
+- create_blob
+- create_ore
+- create_quake
+- create_vein
+- clear_pending_actions
+- save_world_controller
+- load_world_controller
+- on_keydown
+- handle_keydown
+- handle_mouse_button
+- activity_loop
+Class: WorldView
+Methods:
+- viewport_to_world
+- world_to_viewport
+- create_shifted_viewport
+- draw_background
+- draw_entities
+- draw_viewport
+- update_view
+- update_view_tiles
+- update_tile
+- get_tile_image
+- create_mouse_surface
+- update_mouse_cursor
+- mouse_move
+- handle_mouse_motion
+- handle_keydown
+
+Class: Grid
+Methods:
+- set_cell
+- get_cell
+
+worldmodel.py
+
+- sign – sign is a helper function used in many of the methods within worldmodel, and did not belong in any one particular class.
+
+- nearest_entity – The entity_dists parameter in nearest_entity is too obscure to be neatly converted into a method. It is also not called anywhere other than in one function within worldmodel.
+- oftype.nearest_entity would also be trying to call nearest_entity within list, which would not work.
+
+- clamp – clamp is used as a helper function and does not belong in any one class
+
+
+actions.py:
+- create_miner_full_action
+- try_transform_miner_full
+- try_transform_miner_not_full
+- try_transform_miner
+These four functions are used in the same formatting, and no matter how much I tried to manipulate them, passing a method through the transform argument would not work. 
+
+
+
+builder.py
+Here are the builder functions that did not fit into any known classes. 
+- create_default_background 
+- mouse_to_tile
+- create_new_entity
+- is_background_tile
+- on_keydown
+- mouse_to_tile
+- activity_loop
+
+
+
+
+
+
+
+
+Functions in image_store and save_load:
+I left these functions as is in the file because they did not fit in any class. As for save_load, they are specialized to the input file format, and belong in no class that is currently created.
+
+image_store:
+- create_default_image
+- load_images
+- process_image_line
+- get_images_internal
+- get_images
+
+save_load:
+- save_world
+- save_entities
+- save_background
+- load_world
+- add_background
+- add_entity
+- create_from_properties
+- create_miner
+- create_vein
+- create_ore
+- create_blacksmith
+- create_obstacle
+- schedule_entity
+
+
